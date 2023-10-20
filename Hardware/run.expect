@@ -1,0 +1,40 @@
+#!/usr/bin/expect -f
+
+set timeout -1
+
+spawn HW/ssh_retry.sh -o "UserKnownHostsFile=/dev/null" -o "StrictHostKeyChecking=no" root@86.176.40.149
+
+expect "*ssword:"
+send "root\n"
+
+expect "# "
+send "\n"
+
+expect "# "
+send "cd /mnt\n"
+
+expect "# "
+send "cd sd-mmcblk0p1\n"
+
+expect "# "
+send "source ./init.sh\n"
+
+expect "# "
+send "export XILINX_XRT=/usr"
+send "\n"
+
+expect "# "
+send "./vector_add binary_container_1.xclbin\n"
+
+expect {
+	-re "TEST FAILED" {
+		send "exit\n"
+		exit -1
+	}
+	-re "TEST PASSED" {
+		send "exit\n"
+		exit 0
+	}
+}
+
+
