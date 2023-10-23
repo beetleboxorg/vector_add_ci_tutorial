@@ -144,5 +144,5 @@ jobs:
 workflows:
  vec-swemu-build-test:
   jobs:
-   - build-hwemu-vec
-   - test-hw-emulation
+   - build-hw-vec
+   - run-hw-vec
