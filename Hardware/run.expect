@@ -2,7 +2,7 @@
 
 set timeout -1
 
-spawn HW/ssh_retry.sh -o "UserKnownHostsFile=/dev/null" -o "StrictHostKeyChecking=no" root@192.168.1.86
+spawn Hardware/ssh_retry.sh -o "UserKnownHostsFile=/dev/null" -o "StrictHostKeyChecking=no" root@192.168.1.86
 
 expect "*ssword:"
 send "root\n"
