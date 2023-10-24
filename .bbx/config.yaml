@@ -153,8 +153,6 @@ jobs:
        ./vector_add binary_container_1.xclbin
 
  
-
- 
 workflows:
  vec-swemu-build-test:
   jobs:
