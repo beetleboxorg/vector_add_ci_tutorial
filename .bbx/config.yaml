@@ -74,7 +74,7 @@ jobs:
       command: Emulation-HW/build.sh
 
  test-hw-emulation:
-  resource_spec: medium
+  resource_spec: large
   runner: example-runner
   depends:
    - build-hwemu-vec
@@ -160,5 +160,3 @@ workflows:
   jobs:
    - build-hwemu-vec
    - test-hw-emulation
-
-   
