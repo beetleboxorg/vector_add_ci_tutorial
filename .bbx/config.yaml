@@ -32,7 +32,7 @@ jobs:
   depends:
    - build-swemu-vec
   current_working_directory: /tools/Xilinx/Vitis/2020.1/workspace/vadd   
-  device: zcu104-virtual-swemu-vitis20201  
+  device: zcu104-virtual-swemu-vitis20201
   input: 
    artifact: 
     - build-swemu-vec
@@ -78,7 +78,8 @@ jobs:
   runner: example-runner
   depends:
    - build-hwemu-vec
-  current_working_directory: /tools/Xilinx/Vitis/2020.1/workspace/vadd   
+  current_working_directory: /tools/Xilinx/Vitis/2020.1/workspace/vadd
+  device: zcu104-virtual-hwemu-vitis20201  
   input: 
    artifact: 
     - build-hwemu-vec
@@ -105,7 +106,7 @@ jobs:
   current_working_directory: /tools/Xilinx/Vitis/2020.1/workspace/vec    
   input: 
    artifact: 
-    - user_plat.zip
+    - xilinx_zcu104_base_202010_1.zip
     - aarch64-xilinx-linux2020_1.zip
     - xilinx-zynqmp-common-v2020.1.tar.gz
     - Vitis_Libraries_2020_1.tar.gz
