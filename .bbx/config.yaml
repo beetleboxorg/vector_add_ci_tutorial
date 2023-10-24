@@ -39,7 +39,7 @@ jobs:
     - xilinx_zcu104_base_202010_1.zip
   steps:
    - run:
-      name: Run virtual device
+      name: Run swemu device
       on-device: True
       pass: TEST PASSED
       fail: TEST FAILED
@@ -86,7 +86,7 @@ jobs:
     - xilinx_zcu104_base_202010_1.zip
   steps:
    - run:
-      name: Run virtual device
+      name: Run hwemu device
       on-device: True
       pass: TEST PASSED
       fail: TEST FAILED
