@@ -123,22 +123,16 @@ jobs:
    - run:
       name: Run device
       on-device: True
-      fail: Error
+      pass: TEST PASSED
+      fail: TEST FAILED
       command: |      
-       echo Hello world
-       
+       cd /mnt
+       cd sd-mmcblk0p1
+       source ./init.sh
+       export XILINX_XRT=/usr
+       ./vector_add binary_container_1.xclbin
 
-
-
-       
-       echo Testing 456
-
-       
-       echo Testing 345
-
-   - run:
-      name: Run
-      command: ./hw.sh      
+ 
 
  
 workflows:
