@@ -32,6 +32,7 @@ jobs:
   depends:
    - build-swemu-vec
   current_working_directory: /tools/Xilinx/Vitis/2020.1/workspace/vadd   
+  device: zcu104-virtual-swemu-vitis20201  
   input: 
    artifact: 
     - build-swemu-vec
