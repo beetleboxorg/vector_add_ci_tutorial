@@ -33,6 +33,6 @@ jobs:
 
  
 workflows:
- vec-hw-build-test:
+ vec-hw-test:
   jobs:
    - run-hw-vec
