@@ -25,7 +25,10 @@ jobs:
       command: |
        set_reboot sys
        reboot
-
+   - run:
+      name: Wait
+      command: |
+       sleep 60
    - run:
       name: Run device
       on-device: True
