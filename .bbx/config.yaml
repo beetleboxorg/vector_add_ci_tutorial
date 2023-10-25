@@ -3,40 +3,14 @@ runners:
   image: stag:5000/ubuntu-vitis-2020-1
 
 jobs:   
- build-hw-vec:
-  resource_spec: 1.5xlarge  
-  runner: example-runner
-  current_working_directory: /tools/Xilinx/Vitis/2020.1/workspace/vec    
-  input: 
-   artifact: 
-    - xilinx_zcu104_base_202010_1.zip
-    - aarch64-xilinx-linux2020_1.zip
-    - xilinx-zynqmp-common-v2020.1.tar.gz
-    - Vitis_Libraries_2020_1.tar.gz
-  output:
-   artifact:
-    - hw.sh
-    - Hardware/build.sh
-    - Hardware/sleep.sh
-    - Hardware/ssh_retry.sh
-    - Hardware/run.expect
-    - Hardware/transfer.expect
-    - Hardware/package    
-  steps:
-   - run:
-      name: Run Hardware Build
-      command: Hardware/build.sh
-
  run-hw-vec:
   resource_spec: small  
   runner: example-runner
   current_working_directory: /tools/Xilinx/Vitis/2020.1/workspace/vec
   device: zcu104-device-vitis  
-  depends:
-   - build-hw-vec
   input: 
    artifact: 
-    - build-hw-vec
+    - build-vec.tar.gz
   steps:
    - run:
       name: Setup
@@ -61,5 +35,4 @@ jobs:
 workflows:
  vec-hw-build-test:
   jobs:
-   - build-hw-vec
    - run-hw-vec
