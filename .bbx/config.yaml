@@ -51,7 +51,7 @@ jobs:
        ./vector_add binary_container_1.xclbin  
  
 workflows:
- vec-swemu-build-test:
+ vec-hwemu-build-test:
   jobs:
    - build-hwemu-vec
    - test-hw-emulation
