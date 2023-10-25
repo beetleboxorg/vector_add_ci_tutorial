@@ -7,7 +7,7 @@ jobs:
   resource_spec: small  
   runner: example-runner
   current_working_directory: /tools/Xilinx/Vitis/2020.1/workspace/vec
-  device: zcu104-device-vitis  
+  device: zcu104-device-vitis-reboot  
   input: 
    artifact: 
     - build-vec.tar.gz
@@ -18,7 +18,14 @@ jobs:
    - transfer:
       name: Transfer
       SOURCE: Hardware/package/sd_card/*
-      DESTINATION: root@192.168.1.86:/mnt/sd-mmcblk0p1/      
+      DESTINATION: root@192.168.1.86:/mnt/sd-mmcblk0p1/
+   - run:
+      name: Reboot
+      on-device: True
+      command: |
+       set_reboot sys
+       reboot
+
    - run:
       name: Run device
       on-device: True
