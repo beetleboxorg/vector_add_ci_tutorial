@@ -2,57 +2,7 @@ runners:
  example-runner:
   image: stag:5000/ubuntu-vitis-2020-1
 
-jobs:   
- build-swemu-vec:
-  resource_spec: medium
-  runner: example-runner
-  current_working_directory: /tools/Xilinx/Vitis/2020.1/workspace/vadd
-  input: 
-   artifact: 
-    - xilinx_zcu104_base_202010_1.zip
-    - aarch64-xilinx-linux2020_1.zip
-    - xilinx-zynqmp-common-v2020.1.tar.gz
-
-  output:
-   artifact:
-    - sw_emu.sh
-    - Emulation-SW/launch.sh
-    - Emulation-SW/launch.expect
-    - Emulation-SW/package    
-  steps:     
-   - run:
-      name: Run Software Emulation Build      
-      command: |
-       Emulation-SW/build.sh      
-          
-   
- test-sw-emulation:
-  resource_spec: medium
-  runner: example-runner
-  depends:
-   - build-swemu-vec
-  current_working_directory: /tools/Xilinx/Vitis/2020.1/workspace/vadd   
-  device: zcu104-virtual-swemu-vitis20201
-  input: 
-   artifact: 
-    - build-swemu-vec
-    - xilinx_zcu104_base_202010_1.zip
-  steps:
-   - run:
-      name: Run swemu device
-      on-device: True
-      pass: TEST PASSED
-      fail: TEST FAILED
-      command: |      
-       cd /mnt
-       cd sd-mmcblk0p1
-       source ./init.sh
-       export XCL_EMULATION_MODE=sw_emu
-       export XILINX_XRT=/usr
-       export XILINX_VITIS=/mnt/sd-mmcblk0p1/
-       export LD_LIBRARY_PATH=/mnt/sd-mmcblk0p1/:/tmp
-       ./vector_add binary_container_1.xclbin  
-      
+jobs:        
  build-hwemu-vec:
   resource_spec: large  
   runner: example-runner
@@ -99,64 +49,9 @@ jobs:
        export XILINX_VITIS=/mnt/sd-mmcblk0p1/
        export LD_LIBRARY_PATH=/mnt/sd-mmcblk0p1/:/tmp
        ./vector_add binary_container_1.xclbin  
-
- build-hw-vec:
-  resource_spec: 1.5xlarge  
-  runner: example-runner
-  current_working_directory: /tools/Xilinx/Vitis/2020.1/workspace/vec    
-  input: 
-   artifact: 
-    - xilinx_zcu104_base_202010_1.zip
-    - aarch64-xilinx-linux2020_1.zip
-    - xilinx-zynqmp-common-v2020.1.tar.gz
-    - Vitis_Libraries_2020_1.tar.gz
-  output:
-   artifact:
-    - hw.sh
-    - Hardware/build.sh
-    - Hardware/sleep.sh
-    - Hardware/ssh_retry.sh
-    - Hardware/run.expect
-    - Hardware/transfer.expect
-    - Hardware/package    
-  steps:
-   - run:
-      name: Run Hardware Build
-      command: Hardware/build.sh
-
- run-hw-vec:
-  resource_spec: small  
-  runner: example-runner
-  current_working_directory: /tools/Xilinx/Vitis/2020.1/workspace/vec
-  device: zcu104-device-vitis  
-  depends:
-   - build-hw-vec
-  input: 
-   artifact: 
-    - build-hw-vec
-  steps:
-   - run:
-      name: Setup
-      command: apt-get install sshpass  
-   - transfer:
-      name: Transfer
-      SOURCE: Hardware/package/sd_card/*
-      DESTINATION: root@192.168.1.86:/mnt/sd-mmcblk0p1/      
-   - run:
-      name: Run device
-      on-device: True
-      pass: TEST PASSED
-      fail: TEST FAILED
-      command: |      
-       cd /mnt
-       cd sd-mmcblk0p1
-       source ./init.sh
-       export XILINX_XRT=/usr
-       ./vector_add binary_container_1.xclbin
-
  
 workflows:
  vec-swemu-build-test:
   jobs:
-   - build-swemu-vec
-   - test-sw-emulation
+   - build-hwemu-vec
+   - test-hw-emulation
