@@ -3,103 +3,6 @@ runners:
   image: stag:5000/ubuntu-vitis-2020-1
 
 jobs:   
- build-swemu-vec:
-  resource_spec: medium
-  runner: example-runner
-  current_working_directory: /tools/Xilinx/Vitis/2020.1/workspace/vadd
-  input: 
-   artifact: 
-    - xilinx_zcu104_base_202010_1.zip
-    - aarch64-xilinx-linux2020_1.zip
-    - xilinx-zynqmp-common-v2020.1.tar.gz
-
-  output:
-   artifact:
-    - sw_emu.sh
-    - Emulation-SW/launch.sh
-    - Emulation-SW/launch.expect
-    - Emulation-SW/package    
-  steps:     
-   - run:
-      name: Run Software Emulation Build      
-      command: |
-       Emulation-SW/build.sh      
-          
-   
- test-sw-emulation:
-  resource_spec: medium
-  runner: example-runner
-  depends:
-   - build-swemu-vec
-  current_working_directory: /tools/Xilinx/Vitis/2020.1/workspace/vadd   
-  device: zcu104-virtual-swemu-vitis20201
-  input: 
-   artifact: 
-    - build-swemu-vec
-    - xilinx_zcu104_base_202010_1.zip
-  steps:
-   - run:
-      name: Run swemu device
-      on-device: True
-      pass: TEST PASSED
-      fail: TEST FAILED
-      command: |      
-       cd /mnt
-       cd sd-mmcblk0p1
-       source ./init.sh
-       export XCL_EMULATION_MODE=sw_emu
-       export XILINX_XRT=/usr
-       export XILINX_VITIS=/mnt/sd-mmcblk0p1/
-       export LD_LIBRARY_PATH=/mnt/sd-mmcblk0p1/:/tmp
-       ./vector_add binary_container_1.xclbin  
-      
- build-hwemu-vec:
-  resource_spec: large  
-  runner: example-runner
-  current_working_directory: /tools/Xilinx/Vitis/2020.1/workspace/vadd    
-  input: 
-   artifact: 
-    - xilinx_zcu104_base_202010_1.zip
-    - aarch64-xilinx-linux2020_1.zip
-    - xilinx-zynqmp-common-v2020.1.tar.gz
-  output:   
-    artifact:
-    - hw_emu.sh
-    - Emulation-HW/launch.sh
-    - Emulation-HW/launch.expect
-    - Emulation-HW/package
-  steps:
-   - run:
-      name: Run Hardware Emulation Build
-      command: Emulation-HW/build.sh
-
- test-hw-emulation:
-  resource_spec: large
-  runner: example-runner
-  depends:
-   - build-hwemu-vec
-  current_working_directory: /tools/Xilinx/Vitis/2020.1/workspace/vadd
-  device: zcu104-virtual-hwemu-vitis20201  
-  input: 
-   artifact: 
-    - build-hwemu-vec
-    - xilinx_zcu104_base_202010_1.zip
-  steps:
-   - run:
-      name: Run hwemu device
-      on-device: True
-      pass: TEST PASSED
-      fail: TEST FAILED
-      command: |      
-       cd /mnt
-       cd sd-mmcblk0p1
-       source ./init.sh
-       export XCL_EMULATION_MODE=hw_emu
-       export XILINX_XRT=/usr
-       export XILINX_VITIS=/mnt/sd-mmcblk0p1/
-       export LD_LIBRARY_PATH=/mnt/sd-mmcblk0p1/:/tmp
-       ./vector_add binary_container_1.xclbin  
-
  build-hw-vec:
   resource_spec: 1.5xlarge  
   runner: example-runner
@@ -156,7 +59,7 @@ jobs:
 
  
 workflows:
- vec-swemu-build-test:
+ vec-hw-build-test:
   jobs:
-   - build-swemu-vec
-   - test-sw-emulation
+   - build-hw-vec
+   - run-hw-vec
