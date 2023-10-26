@@ -15,9 +15,6 @@ jobs:
 
   output:
    artifact:
-    - sw_emu.sh
-    - Emulation-SW/launch.sh
-    - Emulation-SW/launch.expect
     - Emulation-SW/package    
   steps:     
    - run:
