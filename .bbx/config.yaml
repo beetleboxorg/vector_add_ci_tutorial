@@ -24,7 +24,7 @@ jobs:
           
    
  test-sw-emulation:
-  resource_spec: medium
+  resource_spec: large
   runner: example-runner
   depends:
    - build-swemu-vec
