@@ -7,7 +7,7 @@ jobs:
   resource_spec: small  
   runner: example-runner
   current_working_directory: /tools/Xilinx/Vitis/2020.1/workspace/vec
-  device: zcu104-device-vitis-reboot  
+  device: zcu104-device-vitis  
   input: 
    artifact: 
     - build-vec.tar.gz
