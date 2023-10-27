@@ -4,12 +4,8 @@ This repository contains example code to build and run a vector addition project
 
 Take note of what each branch contains:
 
-The main branch is set up to build and run software emulation, hardware emulation and hardware.
-
-The swemu branch is set up to build and run software emulation.
-
-The hwemu branch is set up to build and run hardware emulation.
-
-The hardware branch is set up to build and run on physical hardware. 
-
-The hardware prebuilt requires the user to input a prebuilt sd card image to run on hardware directly, without the need to build. 
+1. The main branch is set up to build and run software emulation, hardware emulation and hardware.
+2. The swemu branch is set up to build and run software emulation.
+3. The hwemu branch is set up to build and run hardware emulation.
+4. The hardware branch is set up to build and run on physical hardware. 
+5. The hardware prebuilt requires the user to input a prebuilt sd card image to run on hardware directly, without the need to build. 
