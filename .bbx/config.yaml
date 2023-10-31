@@ -21,7 +21,7 @@ jobs:
     - Emulation-SW/package    
   steps:     
    - run:
-      name: Run Build      
+      name: Run Software Emulation Build      
       command: |
        Emulation-SW/build.sh      
           
@@ -70,7 +70,7 @@ jobs:
     - Emulation-HW/package
   steps:
    - run:
-      name: Run Build      
+      name: Run Hardware Emulation Build      
       command: Emulation-HW/build.sh
 
  test-hw-emulation:
