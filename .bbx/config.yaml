@@ -18,14 +18,9 @@ jobs:
     - Emulation-SW/package    
   steps:     
    - run:
-      name: Software     
+      name: Run Software Emulation Build      
       command: |
-       Emulation-SW/build.sh      
-   - run:
-      name: Software     
-      command: |
-       echo hello 
-          
+       Emulation-SW/build.sh         
    
  test-sw-emulation:
   resource_spec: large
