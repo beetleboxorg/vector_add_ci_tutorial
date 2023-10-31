@@ -36,7 +36,7 @@ jobs:
     - xilinx_zcu104_base_202010_1.zip
   steps:
    - run:
-      name: Run swemu device
+      name: Run Software Emulation Build  
       on-device: True
       pass: TEST PASSED
       fail: TEST FAILED
