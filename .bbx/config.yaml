@@ -9,7 +9,7 @@ jobs:
   current_working_directory: /tools/Xilinx/Vitis/2020.1/workspace/vec
   device: zcu104-device-vitis  
   node_selector: 
-    node-type: master
+    node-type: testmaster
   input: 
    artifact: 
     - build-vec.tar.gz
