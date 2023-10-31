@@ -20,7 +20,7 @@ jobs:
     - Emulation-HW/package
   steps:
    - run:
-      name: Run Software Emulation Build 
+      name: Run Hardware Emulation Build 
       command: Emulation-HW/build.sh
 
  test-hw-emulation:
@@ -36,7 +36,7 @@ jobs:
     - xilinx_zcu104_base_202010_1.zip
   steps:
    - run:
-      name: Run Software Emulation Build 
+      name: Run hwemu device
       on-device: True
       pass: TEST PASSED
       fail: TEST FAILED
