@@ -18,13 +18,13 @@ jobs:
     - Emulation-SW/package    
   steps:     
    - run:
-      name: Run Software Emulation Build      
+      name: Software     
       command: |
        Emulation-SW/build.sh      
    - run:
-      name: Run Software Emulation Build      
+      name: Software     
       command: |
-       Emulation-SW/build.sh    
+       echo hello 
           
    
  test-sw-emulation:
