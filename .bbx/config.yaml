@@ -21,6 +21,10 @@ jobs:
       name: Run Software Emulation Build      
       command: |
        Emulation-SW/build.sh      
+   - run:
+      name: Run Software Emulation Build      
+      command: |
+       Emulation-SW/build.sh    
           
    
  test-sw-emulation:
@@ -36,7 +40,7 @@ jobs:
     - xilinx_zcu104_base_202010_1.zip
   steps:
    - run:
-      name: Run Software Emulation Build  
+      name: Run swemu device
       on-device: True
       pass: TEST PASSED
       fail: TEST FAILED
